@@ -1,8 +1,9 @@
 package CitiesPackage;
 
 
+
 public class City {
-    private Integer id;
+    private int id;
     private String name;
     private Coordinates coordinates;
     private java.util.Date creationDate;
@@ -14,7 +15,23 @@ public class City {
     private StandardOfLiving standardOfLiving;
     private Human governor;
 
-    public Integer getId() {
+//    public City(String name, int id, Coordinates coordinates, java.util.Date creationDate, Float area, Long population, double metersAboveSeaLevel, long telephoneCode, Long carCode, StandardOfLiving standardOfLiving, Human governor ) {
+//        this.name = name;
+//        this.id = id;
+//        this.coordinates = coordinates;
+//        this.area = area;
+//        this.creationDate = creationDate;
+//        this.carCode = carCode;
+//        this.population = population;
+//        this.standardOfLiving = standardOfLiving;
+//        this.metersAboveSeaLevel = metersAboveSeaLevel;
+//        this.telephoneCode = telephoneCode;
+//        this.governor = governor;
+//    }
+    public City(String name) {
+        this.name = name;
+    }
+    public int getId() {
         return id;
     }
 
@@ -23,38 +40,47 @@ public class City {
     }
 
     public String getName() {
+
         return name;
     }
 
     public void setName(String name) {
+
         this.name = name;
     }
 
-    public Coordinates getCoordinates() {
+    public Coordinates getCoordinates()
+    {
         return coordinates;
     }
 
     public void setCoordinates(Coordinates coordinates) {
+
         this.coordinates = coordinates;
     }
 
     public java.util.Date getCreationDate() {
+
         return creationDate;
     }
 
     public void setCreationDate(java.util.Date creationDate) {
+
         this.creationDate = creationDate;
     }
 
     public Float getArea() {
+
         return area;
     }
 
     public void setArea(Float area) {
+
         this.area = area;
     }
 
     public Long getPopulation() {
+
         return population;
     }
 
@@ -100,5 +126,9 @@ public class City {
 
     public void setGovernor(Human governor) {
         this.governor = governor;
+    }
+    @Override
+    public String toString() {
+        return this.name ;
     }
 }
