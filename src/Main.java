@@ -52,7 +52,7 @@ public class Main {
                 String id = b.nextLine();
                 boss.addXML_id(id);
                 System.out.println("Введите area");
-                City city = new City(name, id );
+                City city = new City(name, id, main );
                 boss.addtoCol(city);
                 System.out.println("Хотите добавить новый элемент снова?(yes/no)");
                 answer = a.nextLine();
