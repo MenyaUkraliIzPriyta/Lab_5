@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CityManager {
+    private String id;
+    private float area;
     private ArrayList<City> cityCollection;
     private final String XML_FILE_NAME = "city_collection.xml"; // Имя файла для сохранения и загрузки коллекции
 
@@ -100,8 +102,14 @@ public class CityManager {
             document.appendChild(rootElement);
 //
             for (City city : cityCollection) {
-                Element cityElement = document.createElement(city.toString());
+                Element cityElement = document.createElement(String.valueOf(city));
                 rootElement.appendChild(cityElement);
+                Text element1 = document.createTextNode(this.id);
+                cityElement.appendChild(element1);
+                Text area = document.createTextNode(String.valueOf(this.area));
+                cityElement.appendChild(area);
+
+
             }
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -116,8 +124,13 @@ public class CityManager {
             System.err.println(e);
         }
     }
-
-    private Element createCityElement(Document document, City city) {
+public String addXML_id(String id) {
+        return this.id = id;
+}
+public float addXML_area( float area) {
+        return this.area = area;
+}
+private Element createCityElement(Document document, City city) {
         // Реализация создания XML-элемента на основе объекта City
         return null;
     }

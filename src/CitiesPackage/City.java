@@ -7,11 +7,11 @@ public class City {
     private String name;
     private Coordinates coordinates;
     private java.util.Date creationDate;
-    private Float area;
-    private Long population;
+    private float area;
+    private long population;
     private double metersAboveSeaLevel;
     private long telephoneCode;
-    private Long carCode;
+    private long carCode;
     private StandardOfLiving standardOfLiving;
     private Human governor;
 
@@ -28,8 +28,10 @@ public class City {
 //        this.telephoneCode = telephoneCode;
 //        this.governor = governor;
 //    }
-    public City(String name) {
+    public City(String name, int id,  float area) {
         this.name = name;
+        this.id = id;
+        this.area = area;
     }
     public int getId() {
         return id;
