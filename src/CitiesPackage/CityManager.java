@@ -14,11 +14,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CityManager {
-    private String id;
-    private float area;
+    private int id;
+    private long telephonecode;
     private ArrayList<City> cityCollection;
+    public ArrayList<String> city_data = new ArrayList<>();
     private final String XML_FILE_NAME = "city_collection.xml"; // Имя файла для сохранения и загрузки коллекции
 
+    public void add_data(String a) {
+        city_data.add(a);
+    }
     public CityManager() {
         this.cityCollection = new ArrayList<>();
     }
@@ -98,16 +102,22 @@ public class CityManager {
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document document = builder.newDocument();
 
-            Element rootElement = document.createElement("cities");
-            document.appendChild(rootElement);
-//
+            Element rootElement1 = document.createElement("cities");
+            document.appendChild(rootElement1);
+            int k = 0;
             for (City city : cityCollection) {
                 Element cityElement = document.createElement(String.valueOf(city));
-                rootElement.appendChild(cityElement);
-                Text element1 = document.createTextNode(this.id);
-                cityElement.appendChild(element1);
-                Text area = document.createTextNode(String.valueOf(this.area));
-                cityElement.appendChild(area);
+                rootElement1.appendChild(cityElement);
+                Element rootElement2 = document.createElement("id");
+                cityElement.appendChild(rootElement2);
+                Text element1 = document.createTextNode(city_data.get(k));
+                rootElement2.appendChild(element1);
+                k++;
+                Element rootElement3 = document.createElement("telephonecode");
+                cityElement.appendChild(rootElement3);
+                Text telephonecode = document.createTextNode(city_data.get(k));
+                rootElement3.appendChild(telephonecode);
+                k++;
 
 
             }
@@ -124,11 +134,11 @@ public class CityManager {
             System.err.println(e);
         }
     }
-public String addXML_id(String id) {
+public int addXML_id(int id) {
         return this.id = id;
 }
-public float addXML_area( float area) {
-        return this.area = area;
+public long addXML_telephoncode( long telephonecode) {
+        return this.telephonecode = telephonecode;
 }
 private Element createCityElement(Document document, City city) {
         // Реализация создания XML-элемента на основе объекта City

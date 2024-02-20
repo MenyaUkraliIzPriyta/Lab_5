@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <cities>
-    <rlrlrlr>4404044</rlrlrlr>
-    <vrp>4404044</vrp>
+    <Москва>
+        <id>3945</id>
+        <telephonecode>829</telephonecode>
+    </Москва>
+    <СПб>
+        <id>294</id>
+        <telephonecode>193</telephonecode>
+    </СПб>
 </cities>

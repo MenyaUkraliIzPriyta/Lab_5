@@ -12,7 +12,7 @@ public class City {
     private double metersAboveSeaLevel;
     private long telephoneCode;
     private long carCode;
-    private StandardOfLiving standardOfLiving;
+    private String standardOfLiving;
     private Human governor;
 
 //    public City(String name, int id, Coordinates coordinates, java.util.Date creationDate, Float area, Long population, double metersAboveSeaLevel, long telephoneCode, Long carCode, StandardOfLiving standardOfLiving, Human governor ) {
@@ -28,10 +28,11 @@ public class City {
 //        this.telephoneCode = telephoneCode;
 //        this.governor = governor;
 //    }
-    public City(String name, int id,  float area) {
+    public City(String name, int id,  long telephoneCode, String standardOfLiving) {
         this.name = name;
         this.id = id;
-        this.area = area;
+        this.telephoneCode = telephoneCode;
+        this.standardOfLiving = standardOfLiving;
     }
     public int getId() {
         return id;
@@ -114,13 +115,8 @@ public class City {
         this.carCode = carCode;
     }
 
-    public StandardOfLiving getStandardOfLiving() {
-        return standardOfLiving;
-    }
 
-    public void setStandardOfLiving(StandardOfLiving standardOfLiving) {
-        this.standardOfLiving = standardOfLiving;
-    }
+
 
     public Human getGovernor() {
         return governor;
