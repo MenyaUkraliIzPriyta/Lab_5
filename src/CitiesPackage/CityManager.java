@@ -61,7 +61,7 @@ public class CityManager {
         }
     }
 
-    private void loadCollectionFromFile() {
+    public void loadCollectionFromFile() {
         try {
             File file = new File(XML_FILE_NAME);
             if (file.exists()) {
@@ -101,11 +101,15 @@ public class CityManager {
             Element rootElement1 = document.createElement("cities");
             document.appendChild(rootElement1);
 
-
+            int k = 1;
             for (City city : cityCollection) {
-
-                Element cityElement = document.createElement(city.getName());
+                Element cityElement = document.createElement("city" + k);
                 rootElement1.appendChild(cityElement);
+
+                Element rootElementname = document.createElement("name");
+                cityElement.appendChild(rootElementname);
+                Text name = document.createTextNode(city.getName());
+                rootElementname.appendChild(name);
 
                 Element rootElement8= document.createElement("date");
                 cityElement.appendChild(rootElement8);
@@ -152,7 +156,7 @@ public class CityManager {
                 cityElement.appendChild(rootElement10);
                 Text governor = document.createTextNode(String.valueOf(city.getGovernor().getAge()));
                 rootElement10.appendChild(governor);
-
+                k++;
             }
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
