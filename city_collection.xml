@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <cities>
-    <Москва>
-        <id>3945</id>
-        <telephonecode>829</telephonecode>
-    </Москва>
-    <СПб>
-        <id>294</id>
-        <telephonecode>193</telephonecode>
-    </СПб>
+    <jwinvciw>
+        <date>Thu Feb 22 16:35:05 MSK 2024</date>
+        <id>383</id>
+        <telephonecode>9384</telephonecode>
+        <standardOfLiving>HIGH</standardOfLiving>
+        <carcode>3939</carcode>
+        <population>3933939</population>
+        <area>39.0</area>
+        <metersAboveSeaLevel>393.0</metersAboveSeaLevel>
+        <governor>67</governor>
+    </jwinvciw>
 </cities>

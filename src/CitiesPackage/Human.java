@@ -1,9 +1,11 @@
 package CitiesPackage;
 
 import java.time.LocalDate;
-class Human {
+public class Human {
     private int age;
-    private LocalDate birthday;
+    public Human() {
+
+    }
 
     public int getAge() {
         return age;
@@ -11,13 +13,5 @@ class Human {
 
     public void setAge(int age) {
         this.age = age;
-    }
-
-    public LocalDate getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
     }
 }

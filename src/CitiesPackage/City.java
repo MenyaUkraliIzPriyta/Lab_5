@@ -5,7 +5,6 @@ package CitiesPackage;
 public class City {
     private int id;
     private String name;
-    private Coordinates coordinates;
     private java.util.Date creationDate;
     private float area;
     private long population;
@@ -28,11 +27,17 @@ public class City {
 //        this.telephoneCode = telephoneCode;
 //        this.governor = governor;
 //    }
-    public City(String name, int id,  long telephoneCode, String standardOfLiving) {
+    public City(String name, int id,  long telephoneCode, long carCode, long population, float area, java.util.Date creationDate, double metersAboveSeaLevel, String standardOfLiving, Human governor) {
         this.name = name;
         this.id = id;
         this.telephoneCode = telephoneCode;
+        this.carCode = carCode;
+        this.population = population;
+        this.area = area;
+        this.creationDate = creationDate;
+        this.metersAboveSeaLevel = metersAboveSeaLevel;
         this.standardOfLiving = standardOfLiving;
+        this.governor = governor;
     }
     public int getId() {
         return id;
@@ -48,19 +53,12 @@ public class City {
     }
 
     public void setName(String name) {
-
         this.name = name;
     }
 
-    public Coordinates getCoordinates()
-    {
-        return coordinates;
-    }
 
-    public void setCoordinates(Coordinates coordinates) {
 
-        this.coordinates = coordinates;
-    }
+
 
     public java.util.Date getCreationDate() {
 
@@ -115,8 +113,13 @@ public class City {
         this.carCode = carCode;
     }
 
+    public String getStandardOfLiving() {
+        return standardOfLiving;
+    }
 
-
+    public void setStandardOfLiving(String standardOfLiving) {
+        this.standardOfLiving = standardOfLiving;
+    }
 
     public Human getGovernor() {
         return governor;
