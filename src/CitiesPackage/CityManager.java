@@ -16,7 +16,7 @@ import java.util.Scanner;
 
 public class CityManager {
     private ArrayList<City> cityCollection;
-
+    int k = 1;
     private final String XML_FILE_NAME = "city_collection.xml"; // Имя файла для сохранения и загрузки коллекции
 
     public CityManager() {
@@ -63,24 +63,49 @@ public class CityManager {
 
     public void loadCollectionFromFile() {
         try {
-            File file = new File(XML_FILE_NAME);
-            if (file.exists()) {
-                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-                DocumentBuilder builder = factory.newDocumentBuilder();
-                Document document = builder.parse(file);
-                NodeList cityNodes = document.getElementsByTagName("city");
-                for (int i = 0; i < cityNodes.getLength(); i++) {
-                    Node cityNode = cityNodes.item(i);
-                    if (cityNode.getNodeType() == Node.ELEMENT_NODE) {
-                        Element cityElement = (Element) cityNode;
-                        // Прочитать данные из XML и создать объект City
-                        City city = parseCityElement(cityElement);
-                        cityCollection.add(city);
-                    }
+            File inputFile = new File("city_collection.xml");
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(inputFile);
+            doc.getDocumentElement().normalize();
+
+            System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
+
+            NodeList cityNodes = doc.getElementsByTagName("city1");
+
+            for (int i = 0; i < cityNodes.getLength(); i++) {
+                Node cityNode = cityNodes.item(i);
+                System.out.println("----------------------");
+                System.out.println("City:");
+                if (cityNode.getNodeType() == Node.ELEMENT_NODE) {
+                    org.w3c.dom.Element cityElement = (org.w3c.dom.Element) cityNode;
+
+                    String name = cityElement.getElementsByTagName("name").item(0).getTextContent();
+                    String date = cityElement.getElementsByTagName("date").item(0).getTextContent();
+                    int id = Integer.parseInt (cityElement.getElementsByTagName("id").item(0).getTextContent());
+                    long telephoncode = Long.parseLong(cityElement.getElementsByTagName("telephonecode").item(0).getTextContent());
+                    String standardOfLiving = cityElement.getElementsByTagName("standardOfLiving").item(0).getTextContent();
+                    long carcode = Long.parseLong(cityElement.getElementsByTagName("carcode").item(0).getTextContent());
+                    long population = Long.parseLong(cityElement.getElementsByTagName("population").item(0).getTextContent());
+                    float area = Float.parseFloat(cityElement.getElementsByTagName("area").item(0).getTextContent());
+                    double metersAboveSeaLevel = Double.parseDouble(cityElement.getElementsByTagName("metersAboveSeaLevel").item(0).getTextContent());
+                    int age =Integer.parseInt(cityElement.getElementsByTagName("governor").item(0).getTextContent());
+                    Human governor = new Human();
+                    governor.setAge(age);
+                    City city = new City(name, id, telephoncode, carcode, population, area, date, metersAboveSeaLevel, standardOfLiving, governor);
+                    System.out.println("Name: " + cityElement.getElementsByTagName("name").item(0).getTextContent());
+                    System.out.println("Date: " + cityElement.getElementsByTagName("date").item(0).getTextContent());
+                    System.out.println("ID: " + cityElement.getElementsByTagName("id").item(0).getTextContent());
+                    System.out.println("Telephone Code: " + cityElement.getElementsByTagName("telephonecode").item(0).getTextContent());
+                    System.out.println("Standard of Living: " + cityElement.getElementsByTagName("standardOfLiving").item(0).getTextContent());
+                    System.out.println("Car Code: " + cityElement.getElementsByTagName("carcode").item(0).getTextContent());
+                    System.out.println("Population: " + cityElement.getElementsByTagName("population").item(0).getTextContent());
+                    System.out.println("Area: " + cityElement.getElementsByTagName("area").item(0).getTextContent());
+                    System.out.println("Meters Above Sea Level: " + cityElement.getElementsByTagName("metersAboveSeaLevel").item(0).getTextContent());
+                    System.out.println("Governor: " + cityElement.getElementsByTagName("governor").item(0).getTextContent());
+                    cityCollection.add(city);
+
                 }
-                System.out.println("Коллекция загружена из файла.");
-            } else {
-                System.out.println("Файл с коллекцией не найден. Создана пустая коллекция.");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -182,7 +207,7 @@ private Element createCityElement(Document document, City city) {
     public void createCollection(String answer, CityManager boss) {
         switch (answer) {
             case "yes":
-                Date date = new Date();
+                Date date1 = new Date();
                 Scanner a = new Scanner(System.in);
                 Scanner b = new Scanner(System.in);
                 System.out.print("Введите название города:");
@@ -205,6 +230,7 @@ private Element createCityElement(Document document, City city) {
                 int age = b.nextInt();
                 Human governor = new Human();
                 governor.setAge(age);
+                String date = String.valueOf(date1);
 
                 City city = new City(name, id, telephoncode, carcode, population, area, date, metersAboveSeaLevel, standardOfLiving, governor);
                 boss.addtoCol(city);

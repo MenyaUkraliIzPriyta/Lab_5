@@ -5,7 +5,7 @@ package CitiesPackage;
 public class City {
     private int id;
     private String name;
-    private java.util.Date creationDate;
+    private String creationDate;
     private float area;
     private long population;
     private double metersAboveSeaLevel;
@@ -27,7 +27,7 @@ public class City {
 //        this.telephoneCode = telephoneCode;
 //        this.governor = governor;
 //    }
-    public City(String name, int id,  long telephoneCode, long carCode, long population, float area, java.util.Date creationDate, double metersAboveSeaLevel, String standardOfLiving, Human governor) {
+    public City(String name, int id,  long telephoneCode, long carCode, long population, float area,String creationDate, double metersAboveSeaLevel, String standardOfLiving, Human governor) {
         this.name = name;
         this.id = id;
         this.telephoneCode = telephoneCode;
@@ -60,12 +60,12 @@ public class City {
 
 
 
-    public java.util.Date getCreationDate() {
+    public String getCreationDate() {
 
         return creationDate;
     }
 
-    public void setCreationDate(java.util.Date creationDate) {
+    public void setCreationDate(String creationDate) {
 
         this.creationDate = creationDate;
     }
