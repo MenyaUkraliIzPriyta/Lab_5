@@ -85,7 +85,7 @@ public class CityManager {
 
             System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
 
-            NodeList cityNodes = doc.getElementsByTagName("city1");
+//            NodeList cityNodes = doc.getElementsByTagName("city1");
             NodeList cities = doc.getElementsByTagName("cities");
 
             for (int i = 0; i < cityNodes.getLength(); i++) {
