@@ -41,7 +41,7 @@ public class CityManager {
             command = scanner.nextLine();
             executeCommand(command);
         } while (!command.equals("exit"));
-        saveCollectionToFile();
+//        saveCollectionToFile();
     }
 
     private void executeCommand(String command) {
@@ -64,12 +64,18 @@ public class CityManager {
                 System.out.println("count_greater_than_car_code carCode : вывести количество элементов, значение поля carCode которых больше заданного ");
                 break;
             case "info":
-                // Вывод информации о коллекции
+                System.out.println("Тип: Cities");
+                System.out.println("Дата инициализации: " + (cityCollection.get(0).getCreationDate()));
+                System.out.println("Количество элементов: " + cityCollection.size());
                 break;
             case "show":
                 // Вывод всех элементов коллекции
+                System.out.println("Элементы коллекции:" );
+                for(int i = 0; i!= cityCollection.size(); i++ ) {
+                    System.out.println(cityCollection.get(i));
+                }
                 break;
-            // Реализация остальных команд
+            case "add element"
             default:
                 System.out.println("Неизвестная команда. Введите 'help' для справки.");
         }
@@ -84,10 +90,7 @@ public class CityManager {
             doc.getDocumentElement().normalize();
 
             System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
-
-//            NodeList cityNodes = doc.getElementsByTagName("city1");
-            NodeList cities = doc.getElementsByTagName("cities");
-
+            NodeList cityNodes = doc.getElementsByTagName("city1");
             for (int i = 0; i < cityNodes.getLength(); i++) {
                 Node cityNode = cityNodes.item(i);
                 System.out.println("----------------------");
@@ -97,14 +100,14 @@ public class CityManager {
 
                     String name = cityElement.getElementsByTagName("name").item(0).getTextContent();
                     String date = cityElement.getElementsByTagName("date").item(0).getTextContent();
-                    int id = Integer.parseInt (cityElement.getElementsByTagName("id").item(0).getTextContent());
+                    int id = Integer.parseInt(cityElement.getElementsByTagName("id").item(0).getTextContent());
                     long telephoncode = Long.parseLong(cityElement.getElementsByTagName("telephonecode").item(0).getTextContent());
                     String standardOfLiving = cityElement.getElementsByTagName("standardOfLiving").item(0).getTextContent();
                     long carcode = Long.parseLong(cityElement.getElementsByTagName("carcode").item(0).getTextContent());
                     long population = Long.parseLong(cityElement.getElementsByTagName("population").item(0).getTextContent());
                     float area = Float.parseFloat(cityElement.getElementsByTagName("area").item(0).getTextContent());
                     double metersAboveSeaLevel = Double.parseDouble(cityElement.getElementsByTagName("metersAboveSeaLevel").item(0).getTextContent());
-                    int age =Integer.parseInt(cityElement.getElementsByTagName("governor").item(0).getTextContent());
+                    int age = Integer.parseInt(cityElement.getElementsByTagName("governor").item(0).getTextContent());
                     Human governor = new Human();
                     governor.setAge(age);
                     City city = new City(name, id, telephoncode, carcode, population, area, date, metersAboveSeaLevel, standardOfLiving, governor);
@@ -119,10 +122,10 @@ public class CityManager {
                     System.out.println("Meters Above Sea Level: " + cityElement.getElementsByTagName("metersAboveSeaLevel").item(0).getTextContent());
                     System.out.println("Governor: " + cityElement.getElementsByTagName("governor").item(0).getTextContent());
                     cityCollection.add(city);
-
                 }
             }
-        } catch (Exception e) {
+        }
+            catch (Exception e) {
             e.printStackTrace();
         }
     }
