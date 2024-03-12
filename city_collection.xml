@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <cities>
     <city1>
-        <name>Москва</name>
-        <date>Mon Feb 26 16:33:32 MSK 2024</date>
-        <id>39944</id>
-        <telephonecode>954</telephonecode>
-        <standardOfLiving>HIGH</standardOfLiving>
-        <carcode>777</carcode>
-        <population>13456979</population>
-        <area>675.0</area>
-        <metersAboveSeaLevel>2205.0</metersAboveSeaLevel>
-        <governor>68</governor>
+        <name>Moskwa</name>
+        <date>Tue Mar 12 14:05:58 MSK 2024</date>
+        <id>24342</id>
+        <telephonecode>34233</telephonecode>
+        <standardOfLiving>hthth</standardOfLiving>
+        <carcode>5434</carcode>
+        <population>45</population>
+        <area>45.0</area>
+        <metersAboveSeaLevel>45.0</metersAboveSeaLevel>
+        <governor>45</governor>
     </city1>
     <city2>
-        <name>SPb</name>
-        <date>Mon Feb 26 16:33:32 MSK 2024</date>
-        <id>39944</id>
-        <telephonecode>954</telephonecode>
-        <standardOfLiving>HIGH</standardOfLiving>
-        <carcode>777</carcode>
-        <population>13456979</population>
-        <area>675.0</area>
-        <metersAboveSeaLevel>2205.0</metersAboveSeaLevel>
-        <governor>68</governor>
+        <name>3545</name>
+        <date>Tue Mar 12 14:06:17 MSK 2024</date>
+        <id>345</id>
+        <telephonecode>45</telephonecode>
+        <standardOfLiving>45</standardOfLiving>
+        <carcode>45</carcode>
+        <population>45</population>
+        <area>45.0</area>
+        <metersAboveSeaLevel>45.0</metersAboveSeaLevel>
+        <governor>45</governor>
     </city2>
 </cities>

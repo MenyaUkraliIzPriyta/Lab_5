@@ -44,7 +44,10 @@ public class CityManager {
 //        saveCollectionToFile();
     }
 
-    private void executeCommand(String command) {
+    private void executeCommand(String text) {
+        String[] parts = text.split(" ", 2);
+        String command = parts[0];
+        String element = parts.length > 1 ? parts[1] : "";
         // Реализация обработки команд
         switch (command) {
             case "help":
@@ -60,7 +63,7 @@ public class CityManager {
                 System.out.println("insert_at index {element} : добавить новый элемент в заданную позицию ");
                 System.out.println("remove_at index : удалить элемент, находящийся в заданной позиции коллекции (index) ");
                 System.out.println("sum_of_meters_above_sea_level : вывести сумму значений поля metersAboveSeaLevel для всех элементов коллекции ");
-                System.out.println("ount_by_car_code carCode : вывести количество элементов, значение поля carCode которых равно заданному ");
+                System.out.println("count_by_car_code carCode : вывести количество элементов, значение поля carCode которых равно заданному ");
                 System.out.println("count_greater_than_car_code carCode : вывести количество элементов, значение поля carCode которых больше заданного ");
                 break;
             case "info":
@@ -75,7 +78,36 @@ public class CityManager {
                     System.out.println(cityCollection.get(i));
                 }
                 break;
-            case "add element"
+            case "add":
+                Date date1 = new Date();
+                Scanner a = new Scanner(System.in);
+                Scanner b = new Scanner(System.in);
+
+                String name = element;
+                System.out.print("Введите id:");
+                int id = b.nextInt();
+                System.out.print("Введите телефонный код:");
+                long telephoncode= b.nextLong();
+                System.out.print("Введите тип города(ULTRA_HIGH, HIGH, MEDIUM, ULTRA_LOW, NIGHTMARE):");
+                String standardOfLiving = a.nextLine();
+                System.out.print("Введите номер региона:");
+                long carcode = b.nextInt();
+                System.out.print("Население:");
+                long population = b.nextLong();
+                System.out.print("Введите area:");
+                float area = b.nextFloat();
+                System.out.print("Высота над уровнем моря?");
+                double metersAboveSeaLevel = b.nextDouble();
+                System.out.print("Введите возраст мэра:");
+                int age = b.nextInt();
+                Human governor = new Human();
+                governor.setAge(age);
+                String date = String.valueOf(date1);
+                City city = new City(name, id, telephoncode, carcode, population, area, date, metersAboveSeaLevel, standardOfLiving, governor);
+                addtoCol(city);
+                System.out.println(cityCollection);
+
+
             default:
                 System.out.println("Неизвестная команда. Введите 'help' для справки.");
         }
@@ -90,38 +122,40 @@ public class CityManager {
             doc.getDocumentElement().normalize();
 
             System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
-            NodeList cityNodes = doc.getElementsByTagName("city1");
-            for (int i = 0; i < cityNodes.getLength(); i++) {
-                Node cityNode = cityNodes.item(i);
-                System.out.println("----------------------");
-                System.out.println("City:");
-                if (cityNode.getNodeType() == Node.ELEMENT_NODE) {
-                    org.w3c.dom.Element cityElement = (org.w3c.dom.Element) cityNode;
+            for (int j = 0; j!= k+1; j++){
+                NodeList cityNodes = doc.getElementsByTagName("city" + j);
+                for (int i = 0; i < cityNodes.getLength(); i++) {
+                    Node cityNode = cityNodes.item(i);
+                    System.out.println("----------------------");
+                    System.out.println("City:");
+                    if (cityNode.getNodeType() == Node.ELEMENT_NODE) {
+                        org.w3c.dom.Element cityElement = (org.w3c.dom.Element) cityNode;
 
-                    String name = cityElement.getElementsByTagName("name").item(0).getTextContent();
-                    String date = cityElement.getElementsByTagName("date").item(0).getTextContent();
-                    int id = Integer.parseInt(cityElement.getElementsByTagName("id").item(0).getTextContent());
-                    long telephoncode = Long.parseLong(cityElement.getElementsByTagName("telephonecode").item(0).getTextContent());
-                    String standardOfLiving = cityElement.getElementsByTagName("standardOfLiving").item(0).getTextContent();
-                    long carcode = Long.parseLong(cityElement.getElementsByTagName("carcode").item(0).getTextContent());
-                    long population = Long.parseLong(cityElement.getElementsByTagName("population").item(0).getTextContent());
-                    float area = Float.parseFloat(cityElement.getElementsByTagName("area").item(0).getTextContent());
-                    double metersAboveSeaLevel = Double.parseDouble(cityElement.getElementsByTagName("metersAboveSeaLevel").item(0).getTextContent());
-                    int age = Integer.parseInt(cityElement.getElementsByTagName("governor").item(0).getTextContent());
-                    Human governor = new Human();
-                    governor.setAge(age);
-                    City city = new City(name, id, telephoncode, carcode, population, area, date, metersAboveSeaLevel, standardOfLiving, governor);
-                    System.out.println("Name: " + cityElement.getElementsByTagName("name").item(0).getTextContent());
-                    System.out.println("Date: " + cityElement.getElementsByTagName("date").item(0).getTextContent());
-                    System.out.println("ID: " + cityElement.getElementsByTagName("id").item(0).getTextContent());
-                    System.out.println("Telephone Code: " + cityElement.getElementsByTagName("telephonecode").item(0).getTextContent());
-                    System.out.println("Standard of Living: " + cityElement.getElementsByTagName("standardOfLiving").item(0).getTextContent());
-                    System.out.println("Car Code: " + cityElement.getElementsByTagName("carcode").item(0).getTextContent());
-                    System.out.println("Population: " + cityElement.getElementsByTagName("population").item(0).getTextContent());
-                    System.out.println("Area: " + cityElement.getElementsByTagName("area").item(0).getTextContent());
-                    System.out.println("Meters Above Sea Level: " + cityElement.getElementsByTagName("metersAboveSeaLevel").item(0).getTextContent());
-                    System.out.println("Governor: " + cityElement.getElementsByTagName("governor").item(0).getTextContent());
-                    cityCollection.add(city);
+                        String name = cityElement.getElementsByTagName("name").item(0).getTextContent();
+                        String date = cityElement.getElementsByTagName("date").item(0).getTextContent();
+                        int id = Integer.parseInt(cityElement.getElementsByTagName("id").item(0).getTextContent());
+                        long telephoncode = Long.parseLong(cityElement.getElementsByTagName("telephonecode").item(0).getTextContent());
+                        String standardOfLiving = cityElement.getElementsByTagName("standardOfLiving").item(0).getTextContent();
+                        long carcode = Long.parseLong(cityElement.getElementsByTagName("carcode").item(0).getTextContent());
+                        long population = Long.parseLong(cityElement.getElementsByTagName("population").item(0).getTextContent());
+                        float area = Float.parseFloat(cityElement.getElementsByTagName("area").item(0).getTextContent());
+                        double metersAboveSeaLevel = Double.parseDouble(cityElement.getElementsByTagName("metersAboveSeaLevel").item(0).getTextContent());
+                        int age = Integer.parseInt(cityElement.getElementsByTagName("governor").item(0).getTextContent());
+                        Human governor = new Human();
+                        governor.setAge(age);
+                        City city = new City(name, id, telephoncode, carcode, population, area, date, metersAboveSeaLevel, standardOfLiving, governor);
+                        System.out.println("Name: " + cityElement.getElementsByTagName("name").item(0).getTextContent());
+                        System.out.println("Date: " + cityElement.getElementsByTagName("date").item(0).getTextContent());
+                        System.out.println("ID: " + cityElement.getElementsByTagName("id").item(0).getTextContent());
+                        System.out.println("Telephone Code: " + cityElement.getElementsByTagName("telephonecode").item(0).getTextContent());
+                        System.out.println("Standard of Living: " + cityElement.getElementsByTagName("standardOfLiving").item(0).getTextContent());
+                        System.out.println("Car Code: " + cityElement.getElementsByTagName("carcode").item(0).getTextContent());
+                        System.out.println("Population: " + cityElement.getElementsByTagName("population").item(0).getTextContent());
+                        System.out.println("Area: " + cityElement.getElementsByTagName("area").item(0).getTextContent());
+                        System.out.println("Meters Above Sea Level: " + cityElement.getElementsByTagName("metersAboveSeaLevel").item(0).getTextContent());
+                        System.out.println("Governor: " + cityElement.getElementsByTagName("governor").item(0).getTextContent());
+                        cityCollection.add(city);
+                    }
                 }
             }
         }
@@ -144,7 +178,6 @@ public class CityManager {
             Element rootElement1 = document.createElement("cities");
             document.appendChild(rootElement1);
 
-            int k = 1;
             for (City city : cityCollection) {
                 Element cityElement = document.createElement("city" + k);
                 rootElement1.appendChild(cityElement);
