@@ -1,27 +1,23 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <cities>
-    <city1>
-        <name>Moskwa</name>
-        <date>Tue Mar 12 14:05:58 MSK 2024</date>
-        <id>24342</id>
-        <telephonecode>34233</telephonecode>
-        <standardOfLiving>hthth</standardOfLiving>
-        <carcode>5434</carcode>
-        <population>45</population>
-        <area>45.0</area>
-        <metersAboveSeaLevel>45.0</metersAboveSeaLevel>
-        <governor>45</governor>
-    </city1>
-    <city2>
-        <name>3545</name>
-        <date>Tue Mar 12 14:06:17 MSK 2024</date>
-        <id>345</id>
-        <telephonecode>45</telephonecode>
-        <standardOfLiving>45</standardOfLiving>
-        <carcode>45</carcode>
-        <population>45</population>
-        <area>45.0</area>
-        <metersAboveSeaLevel>45.0</metersAboveSeaLevel>
-        <governor>45</governor>
-    </city2>
+	<city>
+		<name>Msk</name>
+		<telephoneCode>977</telephoneCode>
+		<standardOfLiving>HIGH</standardOfLiving>
+		<carcode>777</carcode>
+		<population>15000000</population>
+		<area>6546.0</area>
+		<metersAboveSeaLevel>456654.0</metersAboveSeaLevel>
+		<age>78</age>
+	</city>
+	<city>
+		<name>SPb</name>
+		<telephoneCode>76564</telephoneCode>
+		<standardOfLiving>HIGH</standardOfLiving>
+		<carcode>78</carcode>
+		<population>465464654</population>
+		<area>45.0</area>
+		<metersAboveSeaLevel>543.0</metersAboveSeaLevel>
+		<age>67</age>
+	</city>
 </cities>

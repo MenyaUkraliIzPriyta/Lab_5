@@ -1,12 +1,8 @@
 import CitiesPackage.CityManager;
 
-import java.sql.SQLOutput;
-import java.util.Scanner;
-
-public class Main {
+public class Create_XML {
     public static void main(String[] args) {
         CityManager boss = new CityManager();
-        boss.start();
+        boss.create_document();
     }
-
 }

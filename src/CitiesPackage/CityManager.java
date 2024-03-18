@@ -4,11 +4,7 @@ import org.w3c.dom.*;
 import java.util.Random;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -79,33 +75,7 @@ public class CityManager {
                 }
                 break;
             case "add":
-                Date date1 = new Date();
-                Scanner a = new Scanner(System.in);
-                Scanner b = new Scanner(System.in);
 
-                String name = element;
-                System.out.print("Введите id:");
-                int id = b.nextInt();
-                System.out.print("Введите телефонный код:");
-                long telephoncode= b.nextLong();
-                System.out.print("Введите тип города(ULTRA_HIGH, HIGH, MEDIUM, ULTRA_LOW, NIGHTMARE):");
-                String standardOfLiving = a.nextLine();
-                System.out.print("Введите номер региона:");
-                long carcode = b.nextInt();
-                System.out.print("Население:");
-                long population = b.nextLong();
-                System.out.print("Введите area:");
-                float area = b.nextFloat();
-                System.out.print("Высота над уровнем моря?");
-                double metersAboveSeaLevel = b.nextDouble();
-                System.out.print("Введите возраст мэра:");
-                int age = b.nextInt();
-                Human governor = new Human();
-                governor.setAge(age);
-                String date = String.valueOf(date1);
-                City city = new City(name, id, telephoncode, carcode, population, area, date, metersAboveSeaLevel, standardOfLiving, governor);
-                addtoCol(city);
-                System.out.println(cityCollection);
 
 
             default:
@@ -164,143 +134,67 @@ public class CityManager {
         }
     }
 
-    private City parseCityElement(Element cityElement) {
-        // Реализация парсинга XML-элемента в объект City
-        return null;
-    }
+    public void create_document() {
+        Scanner a = new Scanner(System.in);
 
-    public void saveCollectionToFile() {
         try {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.newDocument();
+            System.out.print("Введите количество городов: ");
+            int citiesCount = a.nextInt();
+            a.nextLine(); // очистка буфера после nextInt()
 
-            Element rootElement1 = document.createElement("cities");
-            document.appendChild(rootElement1);
+            StringBuilder xmlContent = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<cities>\n");
 
-            for (City city : cityCollection) {
-                Element cityElement = document.createElement("city" + k);
-                rootElement1.appendChild(cityElement);
-
-                Element rootElementname = document.createElement("name");
-                cityElement.appendChild(rootElementname);
-                Text name = document.createTextNode(city.getName());
-                rootElementname.appendChild(name);
-
-                Element rootElement8= document.createElement("date");
-                cityElement.appendChild(rootElement8);
-                Text date = document.createTextNode(String.valueOf(city.getCreationDate()));
-                rootElement8.appendChild(date);
-
-                Element rootElement2 = document.createElement("id");
-                cityElement.appendChild(rootElement2);
-                Text element1 = document.createTextNode(String.valueOf(city.getId()));
-                rootElement2.appendChild(element1);
-
-                Element rootElement3 = document.createElement("telephonecode");
-                cityElement.appendChild(rootElement3);
-                Text telephonecode = document.createTextNode(String.valueOf(city.getTelephoneCode()));
-                rootElement3.appendChild(telephonecode);
-
-                Element rootElement4= document.createElement("standardOfLiving");
-                cityElement.appendChild(rootElement4);
-                Text standardOfLiving = document.createTextNode(String.valueOf(city.getStandardOfLiving()));
-                rootElement4.appendChild(standardOfLiving);
-
-                Element rootElement5= document.createElement("carcode");
-                cityElement.appendChild(rootElement5);
-                Text carcode = document.createTextNode(String.valueOf(city.getCarCode()));
-                rootElement5.appendChild(carcode);
-
-                Element rootElement6= document.createElement("population");
-                cityElement.appendChild(rootElement6);
-                Text population = document.createTextNode(String.valueOf(city.getPopulation()));
-                rootElement6.appendChild(population);
-
-                Element rootElement7= document.createElement("area");
-                cityElement.appendChild(rootElement7);
-                Text area = document.createTextNode(String.valueOf(city.getArea()));
-                rootElement7.appendChild(area);
-
-
-                Element rootElement9= document.createElement("metersAboveSeaLevel");
-                cityElement.appendChild(rootElement9);
-                Text metersAboveSeaLevel = document.createTextNode(String.valueOf(city.getMetersAboveSeaLevel()));
-                rootElement9.appendChild(metersAboveSeaLevel);
-
-                Element rootElement10= document.createElement("governor");
-                cityElement.appendChild(rootElement10);
-                Text governor = document.createTextNode(String.valueOf(city.getGovernor().getAge()));
-                rootElement10.appendChild(governor);
-                k++;
-            }
-
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            DOMSource source = new DOMSource(document);
-            StreamResult result = new StreamResult(new File(XML_FILE_NAME));
-            transformer.transform(source, result);
-
-            System.out.println("Коллекция сохранена в файл.");
-        } catch (Exception e) {
-            System.err.println(e);
-        }
-    }
-private Element createCityElement(Document document, City city) {
-        // Реализация создания XML-элемента на основе объекта City
-        return null;
-    }
-    public  void question() {
-        System.out.println("Хотите добавить новый элемент?(yes/no)");
-
-    }
-    public void createCollection(String answer, CityManager boss) {
-        switch (answer) {
-            case "yes":
-                Date date1 = new Date();
-                Scanner a = new Scanner(System.in);
-                Scanner b = new Scanner(System.in);
-                System.out.print("Введите название города:");
+            for (int i = 1; i <= citiesCount; i++) {
+                System.out.println("Город " + i + ":");
+                System.out.print("Введите название: ");
                 String name = a.nextLine();
-                System.out.print("Введите id:");
-                int id = b.nextInt();
-                System.out.print("Введите телефонный код:");
-                long telephoncode= b.nextLong();
+                System.out.print("Введите телефонный код: ");
+                long telephoneCode = a.nextLong();
+                a.nextLine();
                 System.out.print("Введите тип города(ULTRA_HIGH, HIGH, MEDIUM, ULTRA_LOW, NIGHTMARE):");
                 String standardOfLiving = a.nextLine();
                 System.out.print("Введите номер региона:");
-                long carcode = b.nextInt();
+                long carcode = a.nextInt();
+                a.nextLine();
                 System.out.print("Население:");
-                long population = b.nextLong();
+                long population = a.nextLong();
+                a.nextLine();
                 System.out.print("Введите area:");
-                float area = b.nextFloat();
+                float area = a.nextFloat();
+                a.nextLine();
                 System.out.print("Высота над уровнем моря?");
-                double metersAboveSeaLevel = b.nextDouble();
+                double metersAboveSeaLevel = a.nextDouble();
+                a.nextLine();
                 System.out.print("Введите возраст мэра:");
-                int age = b.nextInt();
-                Human governor = new Human();
-                governor.setAge(age);
-                String date = String.valueOf(date1);
+                int age = a.nextInt();
+                a.nextLine();
 
-                City city = new City(name, id, telephoncode, carcode, population, area, date, metersAboveSeaLevel, standardOfLiving, governor);
-                boss.addtoCol(city);
-                System.out.println("Хотите добавить новый элемент снова?(yes/no)");
-                answer = a.nextLine();
-                createCollection(answer, boss);
-                break;
-            case "no":
-                boss.saveCollectionToFile();
-                System.out.println(boss.printy());
-                break;
-            default:
-                a = new Scanner(System.in);
-                System.out.println("Неизвестная команда. Введите 'yes/no'.");
-                answer = a.nextLine();
-                createCollection(answer, boss);
-                break;
+                xmlContent.append("\t<city>\n")
+                        .append("\t\t<name>").append(name).append("</name>\n")
+                        .append("\t\t<telephoneCode>").append(telephoneCode).append("</telephoneCode>\n")
+                        .append("\t\t<standardOfLiving>").append(standardOfLiving).append("</standardOfLiving>\n")
+                        .append("\t\t<carcode>").append(carcode).append("</carcode>\n")
+                        .append("\t\t<population>").append(population).append("</population>\n")
+                        .append("\t\t<area>").append(area).append("</area>\n")
+                        .append("\t\t<metersAboveSeaLevel>").append(metersAboveSeaLevel).append("</metersAboveSeaLevel>\n")
+                        .append("\t\t<age>").append(age).append("</age>\n")
+
+                        // Здесь добавьте запись остальных полей в XML
+                        .append("\t</city>\n");
+            }
+
+            xmlContent.append("</cities>");
+
+            // Сохраняем содержимое в файл
+            File file = new File("city_collection.xml");
+            FileWriter writer = new FileWriter(file);
+            writer.write(xmlContent.toString());
+            writer.close();
+
+            System.out.println("Данные о городах успешно сохранены в XML файл.");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
-
 }
 
