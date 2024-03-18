@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cities>
 	<city>
-		<name>Msk</name>
+		<name>SPb</name>
+		<id>6046880</id>
+		<telephoneCode>987</telephoneCode>
+		<standardOfLiving>HIGH</standardOfLiving>
+		<carcode>78</carcode>
+		<population>5354354</population>
+		<area>45.0</area>
+		<metersAboveSeaLevel>45.0</metersAboveSeaLevel>
+		<age>67</age>
+	</city>
+	<city>
+		<name>MSK</name>
+		<id>6016880</id>
 		<telephoneCode>977</telephoneCode>
 		<standardOfLiving>HIGH</standardOfLiving>
 		<carcode>777</carcode>
-		<population>15000000</population>
-		<area>6546.0</area>
-		<metersAboveSeaLevel>456654.0</metersAboveSeaLevel>
-		<age>78</age>
-	</city>
-	<city>
-		<name>SPb</name>
-		<telephoneCode>76564</telephoneCode>
-		<standardOfLiving>HIGH</standardOfLiving>
-		<carcode>78</carcode>
-		<population>465464654</population>
-		<area>45.0</area>
-		<metersAboveSeaLevel>543.0</metersAboveSeaLevel>
-		<age>67</age>
+		<population>544444444</population>
+		<area>45.1</area>
+		<metersAboveSeaLevel>45.1</metersAboveSeaLevel>
+		<age>68</age>
 	</city>
 </cities>

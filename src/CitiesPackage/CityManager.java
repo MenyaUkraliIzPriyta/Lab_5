@@ -10,6 +10,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.File;
+
 public class CityManager {
     private ArrayList<City> cityCollection;
     private int col;
@@ -37,7 +42,6 @@ public class CityManager {
             command = scanner.nextLine();
             executeCommand(command);
         } while (!command.equals("exit"));
-//        saveCollectionToFile();
     }
 
     private void executeCommand(String text) {
@@ -75,9 +79,9 @@ public class CityManager {
                 }
                 break;
             case "add":
-
-
-
+                Scanner a = new Scanner(System.in);
+                Random random = new Random();
+                int id = random.nextInt(10000000);
             default:
                 System.out.println("Неизвестная команда. Введите 'help' для справки.");
         }
@@ -85,58 +89,57 @@ public class CityManager {
 
     public void loadCollectionFromFile() {
         try {
-            File inputFile = new File("city_collection.xml");
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(inputFile);
-            doc.getDocumentElement().normalize();
+            // Загружаем XML файл в память в виде DOM дерева
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document document = builder.parse(new File("city_collection.xml"));
 
-            System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
-            for (int j = 0; j!= k+1; j++){
-                NodeList cityNodes = doc.getElementsByTagName("city" + j);
-                for (int i = 0; i < cityNodes.getLength(); i++) {
-                    Node cityNode = cityNodes.item(i);
-                    System.out.println("----------------------");
-                    System.out.println("City:");
-                    if (cityNode.getNodeType() == Node.ELEMENT_NODE) {
-                        org.w3c.dom.Element cityElement = (org.w3c.dom.Element) cityNode;
+            // Получаем корневой элемент "cities"
+            Element rootElement = document.getDocumentElement();
 
-                        String name = cityElement.getElementsByTagName("name").item(0).getTextContent();
-                        String date = cityElement.getElementsByTagName("date").item(0).getTextContent();
-                        int id = Integer.parseInt(cityElement.getElementsByTagName("id").item(0).getTextContent());
-                        long telephoncode = Long.parseLong(cityElement.getElementsByTagName("telephonecode").item(0).getTextContent());
-                        String standardOfLiving = cityElement.getElementsByTagName("standardOfLiving").item(0).getTextContent();
-                        long carcode = Long.parseLong(cityElement.getElementsByTagName("carcode").item(0).getTextContent());
-                        long population = Long.parseLong(cityElement.getElementsByTagName("population").item(0).getTextContent());
-                        float area = Float.parseFloat(cityElement.getElementsByTagName("area").item(0).getTextContent());
-                        double metersAboveSeaLevel = Double.parseDouble(cityElement.getElementsByTagName("metersAboveSeaLevel").item(0).getTextContent());
-                        int age = Integer.parseInt(cityElement.getElementsByTagName("governor").item(0).getTextContent());
-                        Human governor = new Human();
-                        governor.setAge(age);
-                        City city = new City(name, id, telephoncode, carcode, population, area, date, metersAboveSeaLevel, standardOfLiving, governor);
-                        System.out.println("Name: " + cityElement.getElementsByTagName("name").item(0).getTextContent());
-                        System.out.println("Date: " + cityElement.getElementsByTagName("date").item(0).getTextContent());
-                        System.out.println("ID: " + cityElement.getElementsByTagName("id").item(0).getTextContent());
-                        System.out.println("Telephone Code: " + cityElement.getElementsByTagName("telephonecode").item(0).getTextContent());
-                        System.out.println("Standard of Living: " + cityElement.getElementsByTagName("standardOfLiving").item(0).getTextContent());
-                        System.out.println("Car Code: " + cityElement.getElementsByTagName("carcode").item(0).getTextContent());
-                        System.out.println("Population: " + cityElement.getElementsByTagName("population").item(0).getTextContent());
-                        System.out.println("Area: " + cityElement.getElementsByTagName("area").item(0).getTextContent());
-                        System.out.println("Meters Above Sea Level: " + cityElement.getElementsByTagName("metersAboveSeaLevel").item(0).getTextContent());
-                        System.out.println("Governor: " + cityElement.getElementsByTagName("governor").item(0).getTextContent());
-                        cityCollection.add(city);
-                    }
-                }
+            // Получаем список всех элементов "city"
+            NodeList cityNodes = rootElement.getElementsByTagName("city");
+
+            // Создаем пустой список для хранения объектов City
+
+            // Перебираем все элементы "city"
+            for (int i = 0; i < cityNodes.getLength(); i++) {
+                Element cityElement = (Element) cityNodes.item(i);
+
+                // Получаем значения полей элемента "city"
+                String name = cityElement.getElementsByTagName("name").item(0).getTextContent();
+                int id = Integer.parseInt(cityElement.getElementsByTagName("id").item(0).getTextContent());
+                long telephoneCode = Long.parseLong(cityElement.getElementsByTagName("telephoneCode").item(0).getTextContent());
+                long carcode = Long.parseLong(cityElement.getElementsByTagName("carcode").item(0).getTextContent());
+                long population = Long.parseLong(cityElement.getElementsByTagName("population").item(0).getTextContent());
+                float area = Float.parseFloat(cityElement.getElementsByTagName("area").item(0).getTextContent());
+                double metersAboveSeaLevel = Double.parseDouble(cityElement.getElementsByTagName("metersAboveSeaLevel").item(0).getTextContent());
+                int age = Integer.parseInt(cityElement.getElementsByTagName("age").item(0).getTextContent());
+
+                Human governor = new Human();
+                governor.setAge(age);
+                // Создаем объект City на основе считанных данных
+                City city = new City();
+                city.setName(name);
+                city.setId(id);
+                city.setTelephoneCode(telephoneCode);
+                city.setCarCode(carcode);
+                city.setPopulation(population);
+                city.setArea(area);
+                city.setMetersAboveSeaLevel(metersAboveSeaLevel);
+                city.setGovernor(governor);
+                cityCollection.add(city);
             }
-        }
-            catch (Exception e) {
+            System.out.println(cityCollection);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void create_document() {
         Scanner a = new Scanner(System.in);
-
+        Random random = new Random();
+        int id = random.nextInt(10000000);
         try {
             System.out.print("Введите количество городов: ");
             int citiesCount = a.nextInt();
@@ -171,6 +174,7 @@ public class CityManager {
 
                 xmlContent.append("\t<city>\n")
                         .append("\t\t<name>").append(name).append("</name>\n")
+                        .append("\t\t<id>").append(id).append("</id>\n")
                         .append("\t\t<telephoneCode>").append(telephoneCode).append("</telephoneCode>\n")
                         .append("\t\t<standardOfLiving>").append(standardOfLiving).append("</standardOfLiving>\n")
                         .append("\t\t<carcode>").append(carcode).append("</carcode>\n")

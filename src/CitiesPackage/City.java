@@ -14,20 +14,8 @@ public class City {
     private String standardOfLiving;
     private Human governor;
 
-//    public City(String name, int id, Coordinates coordinates, java.util.Date creationDate, Float area, Long population, double metersAboveSeaLevel, long telephoneCode, Long carCode, StandardOfLiving standardOfLiving, Human governor ) {
-//        this.name = name;
-//        this.id = id;
-//        this.coordinates = coordinates;
-//        this.area = area;
-//        this.creationDate = creationDate;
-//        this.carCode = carCode;
-//        this.population = population;
-//        this.standardOfLiving = standardOfLiving;
-//        this.metersAboveSeaLevel = metersAboveSeaLevel;
-//        this.telephoneCode = telephoneCode;
-//        this.governor = governor;
-//    }
-    public City(String name, int id,  long telephoneCode, long carCode, long population, float area,String creationDate, double metersAboveSeaLevel, String standardOfLiving, Human governor) {
+
+    public City() {
         this.name = name;
         this.id = id;
         this.telephoneCode = telephoneCode;
