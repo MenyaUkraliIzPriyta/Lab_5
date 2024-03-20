@@ -1,25 +1,39 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <cities>
-	<city>
-		<name>SPb</name>
-		<id>6046880</id>
-		<telephoneCode>987</telephoneCode>
-		<standardOfLiving>HIGH</standardOfLiving>
-		<carcode>78</carcode>
-		<population>5354354</population>
-		<area>45.0</area>
-		<metersAboveSeaLevel>45.0</metersAboveSeaLevel>
-		<age>67</age>
-	</city>
-	<city>
-		<name>MSK</name>
-		<id>6016880</id>
-		<telephoneCode>977</telephoneCode>
-		<standardOfLiving>HIGH</standardOfLiving>
-		<carcode>777</carcode>
-		<population>544444444</population>
-		<area>45.1</area>
-		<metersAboveSeaLevel>45.1</metersAboveSeaLevel>
-		<age>68</age>
-	</city>
+    <city>
+        <name>msk</name>
+        <id>5707203</id>
+        <telephoneCode>555434</telephoneCode>
+        <standardOfLiving>high</standardOfLiving>
+        <carcode>5353</carcode>
+        <population>35453</population>
+        <area>3453.0</area>
+        <metersAboveSeaLevel>45.0</metersAboveSeaLevel>
+        <age>455</age>
+        <creationDate>Wed Mar 20 23:27:03 MSK 2024</creationDate>
+    </city>
+    <city>
+        <name>spb</name>
+        <id>4210406</id>
+        <telephoneCode>4344334</telephoneCode>
+        <standardOfLiving>high</standardOfLiving>
+        <carcode>24242</carcode>
+        <population>323323424</population>
+        <area>33433.0</area>
+        <metersAboveSeaLevel>34334.0</metersAboveSeaLevel>
+        <age>444</age>
+        <creationDate>Wed Mar 20 23:29:15 MSK 2024</creationDate>
+    </city>
+    <city>
+        <name>novosib</name>
+        <id>9306820</id>
+        <telephoneCode>443434</telephoneCode>
+        <standardOfLiving>high</standardOfLiving>
+        <carcode>434232423</carcode>
+        <population>434323</population>
+        <area>23242.0</area>
+        <metersAboveSeaLevel>56.0</metersAboveSeaLevel>
+        <age>43</age>
+        <creationDate>Wed Mar 20 23:29:32 MSK 2024</creationDate>
+    </city>
 </cities>

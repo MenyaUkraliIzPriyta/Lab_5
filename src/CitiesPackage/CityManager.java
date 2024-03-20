@@ -55,7 +55,7 @@ public class CityManager {
                 System.out.println("info : вывести в стандартный поток вывода информацию о коллекции (тип, дата инициализации, количество элементов и т.д.)");
                 System.out.println("show : вывести в стандартный поток вывода все элементы коллекции в строковом представлении");
                 System.out.println("add {element} : добавить новый элемент в коллекцию");
-                System.out.println("update id {element} : обновить значение элемента коллекции, id которого равен заданному ");
+                System.out.println("update_id {element} : обновить значение элемента коллекции, id которого равен заданному ");
                 System.out.println("remove_by_id id : удалить элемент из коллекции по его id ");
                 System.out.println("clear : очистить коллекцию ");
                 System.out.println("save : сохранить коллекцию в файл");
@@ -66,22 +66,99 @@ public class CityManager {
                 System.out.println("count_by_car_code carCode : вывести количество элементов, значение поля carCode которых равно заданному ");
                 System.out.println("count_greater_than_car_code carCode : вывести количество элементов, значение поля carCode которых больше заданного ");
                 break;
+
             case "info":
                 System.out.println("Тип: Cities");
                 System.out.println("Дата инициализации: " + (cityCollection.get(0).getCreationDate()));
                 System.out.println("Количество элементов: " + cityCollection.size());
                 break;
+
             case "show":
                 // Вывод всех элементов коллекции
-                System.out.println("Элементы коллекции:" );
-                for(int i = 0; i!= cityCollection.size(); i++ ) {
+                System.out.println("Элементы коллекции:");
+                for (int i = 0; i != cityCollection.size(); i++) {
                     System.out.println(cityCollection.get(i));
                 }
                 break;
+
             case "add":
+                Date date = new Date();
                 Scanner a = new Scanner(System.in);
                 Random random = new Random();
                 int id = random.nextInt(10000000);
+                System.out.print("Введите телефонный код: ");
+                long telephoneCode = a.nextLong();
+                a.nextLine();
+                System.out.print("Введите тип города(ULTRA_HIGH, HIGH, MEDIUM, ULTRA_LOW, NIGHTMARE):");
+                String standardOfLiving = a.nextLine();
+                System.out.print("Введите номер региона:");
+                long carcode = a.nextInt();
+                a.nextLine();
+                System.out.print("Население:");
+                long population = a.nextLong();
+                a.nextLine();
+                System.out.print("Введите area:");
+                float area = a.nextFloat();
+                a.nextLine();
+                System.out.print("Высота над уровнем моря?");
+                double metersAboveSeaLevel = a.nextDouble();
+                a.nextLine();
+                System.out.print("Введите возраст мэра:");
+                int age = a.nextInt();
+                a.nextLine();
+
+                Human governor = new Human();
+                governor.setAge(age);
+                // Создаем объект City на основе считанных данных
+                City city = new City();
+                city.setName(element);
+                city.setId(id);
+                city.setTelephoneCode(telephoneCode);
+                city.setCarCode(carcode);
+                city.setPopulation(population);
+                city.setArea(area);
+                city.setMetersAboveSeaLevel(metersAboveSeaLevel);
+                city.setGovernor(governor);
+                city.setStandardOfLiving(standardOfLiving);
+                city.setCreationDate(String.valueOf(date));
+                cityCollection.add(city);
+                System.out.println(cityCollection);
+                break;
+
+            case "update_id":
+                for (City cities : cityCollection) {
+                    if (cities.getName().equals(element) ) {
+                        Random random_ = new Random();
+                        int id_ = random_.nextInt(10000000);
+                        cities.setId(id_);
+                        System.out.println("id изменен");
+                        break;
+                    }
+                }
+
+            case "remove_by_id":
+                for (int i = 0; i != cityCollection.size(); i++) {
+                    if (cityCollection.get(i).getName().equals(element)) {
+                        City delete = cityCollection.get(i);
+                        cityCollection.remove(delete);
+                    }
+                    System.out.println("Элемент удален");
+                    break;
+                }
+
+            case "clear":
+               cityCollection.clear();
+                System.out.println("Ваша коллекция стала пустой");
+                break;
+
+            case "exit":
+                System.out.println("Работа программы завершена без принудительного сохранения");
+                System.exit(0);
+
+            case "save":
+                saveCollection();
+                break;
+
             default:
                 System.out.println("Неизвестная команда. Введите 'help' для справки.");
         }
@@ -115,7 +192,8 @@ public class CityManager {
                 float area = Float.parseFloat(cityElement.getElementsByTagName("area").item(0).getTextContent());
                 double metersAboveSeaLevel = Double.parseDouble(cityElement.getElementsByTagName("metersAboveSeaLevel").item(0).getTextContent());
                 int age = Integer.parseInt(cityElement.getElementsByTagName("age").item(0).getTextContent());
-
+                String standardOfLiving = cityElement.getElementsByTagName("standardOfLiving").item(0).getTextContent();
+                String creationDate = cityElement.getElementsByTagName("creationDate").item(0).getTextContent();
                 Human governor = new Human();
                 governor.setAge(age);
                 // Создаем объект City на основе считанных данных
@@ -128,6 +206,8 @@ public class CityManager {
                 city.setArea(area);
                 city.setMetersAboveSeaLevel(metersAboveSeaLevel);
                 city.setGovernor(governor);
+                city.setStandardOfLiving(standardOfLiving);
+                city.setCreationDate(creationDate);
                 cityCollection.add(city);
             }
             System.out.println(cityCollection);
@@ -144,10 +224,10 @@ public class CityManager {
             System.out.print("Введите количество городов: ");
             int citiesCount = a.nextInt();
             a.nextLine(); // очистка буфера после nextInt()
-
             StringBuilder xmlContent = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<cities>\n");
 
             for (int i = 1; i <= citiesCount; i++) {
+                Date date = new Date();
                 System.out.println("Город " + i + ":");
                 System.out.print("Введите название: ");
                 String name = a.nextLine();
@@ -182,6 +262,7 @@ public class CityManager {
                         .append("\t\t<area>").append(area).append("</area>\n")
                         .append("\t\t<metersAboveSeaLevel>").append(metersAboveSeaLevel).append("</metersAboveSeaLevel>\n")
                         .append("\t\t<age>").append(age).append("</age>\n")
+                        .append("\t\t<creationDate>").append(date).append("</creationDate>\n")
 
                         // Здесь добавьте запись остальных полей в XML
                         .append("\t</city>\n");
@@ -200,5 +281,58 @@ public class CityManager {
             e.printStackTrace();
         }
     }
+    private void saveCollection() {
+        try {
+            // Создаем новый документ XML
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document document = builder.newDocument();
+
+            // Создаем корневой элемент "cities"
+            Element rootElement = document.createElement("cities");
+            document.appendChild(rootElement);
+
+            // Для каждого города в коллекции создаем элемент "city" и добавляем его в корневой элемент
+            for (City city : cityCollection) {
+                Element cityElement = document.createElement("city");
+                rootElement.appendChild(cityElement);
+
+                // Добавляем дочерние элементы для каждого поля города
+                addElement(document, cityElement, "name", city.getName());
+                addElement(document, cityElement, "id", String.valueOf(city.getId()));
+                addElement(document, cityElement, "telephoneCode", String.valueOf(city.getTelephoneCode()));
+                addElement(document, cityElement, "standardOfLiving", city.getStandardOfLiving());
+                addElement(document, cityElement, "carcode", String.valueOf(city.getCarCode()));
+                addElement(document, cityElement, "population", String.valueOf(city.getPopulation()));
+                addElement(document, cityElement, "area", String.valueOf(city.getArea()));
+                addElement(document, cityElement, "metersAboveSeaLevel", String.valueOf(city.getMetersAboveSeaLevel()));
+                addElement(document, cityElement, "age", String.valueOf(city.getGovernor().getAge()));
+                addElement(document, cityElement, "creationDate", String.valueOf(city.getCreationDate()));
+            }
+
+            // Сохраняем измененное DOM дерево обратно в XML файл
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+            DOMSource source = new DOMSource(document);
+            StreamResult result = new StreamResult(new File("city_collection.xml"));
+            transformer.transform(source, result);
+
+            System.out.println("XML файл успешно сохранен.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    // Вспомогательный метод для добавления элемента в DOM дерево
+    private static void addElement(Document document, Element parentElement, String tagName, String textContent) {
+        Element element = document.createElement(tagName);
+        element.appendChild(document.createTextNode(textContent));
+        parentElement.appendChild(element);
+    }
 }
+
+
 
