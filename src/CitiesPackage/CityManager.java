@@ -131,10 +131,10 @@ public class CityManager {
                         Random random_ = new Random();
                         int id_ = random_.nextInt(10000000);
                         cities.setId(id_);
-                        System.out.println("id изменен");
-                        break;
                     }
                 }
+                System.out.println("id изменен");
+                break;
 
             case "remove_by_id":
                 for (int i = 0; i != cityCollection.size(); i++) {
@@ -142,13 +142,13 @@ public class CityManager {
                         City delete = cityCollection.get(i);
                         cityCollection.remove(delete);
                     }
-                    System.out.println("Элемент удален");
-                    break;
                 }
+                System.out.println("Элемент удален");
+                break;
 
             case "clear":
                cityCollection.clear();
-                System.out.println("Ваша коллекция стала пустой");
+               System.out.println("Ваша коллекция стала пустой");
                 break;
 
             case "exit":
@@ -157,6 +157,51 @@ public class CityManager {
 
             case "save":
                 saveCollection();
+                break;
+
+            case "remove_at":
+                if (Integer.parseInt(element) >= cityCollection.size()) {
+                    System.out.println("Коллекция не содержит элемент с данным индексом");
+                    break;
+                }
+                else {
+                    for (int i = 0; i != cityCollection.size(); i++) {
+                        if (i == Integer.parseInt(element)) {
+                            City delete = cityCollection.get(i);
+                            cityCollection.remove(delete);
+                            System.out.println("Элемент успешно удален");
+                            break;
+                        }
+                    }
+                }
+                break;
+
+            case "sum_of_meters_above_sea_level":
+                double sum = 0;
+                for (City cities : cityCollection) {
+                    sum += cities.getMetersAboveSeaLevel();
+                }
+                System.out.println("Сумма: " + sum);
+                break;
+
+            case "count_by_car_code":
+                int sum_ = 0;
+                for (City cities : cityCollection) {
+                    if (cities.getCarCode() == Long.parseLong(element))  {
+                        sum_++;
+                    }
+                }
+                System.out.println("Количество элементов: " + sum_);
+                break;
+
+            case "count_greater_than_car_code":
+                int sum__= 0;
+                for (City cities : cityCollection) {
+                    if (cities.getCarCode() > Long.parseLong(element))  {
+                        sum__++;
+                    }
+                }
+                System.out.println("Количество элементов: " + sum__);
                 break;
 
             default:
