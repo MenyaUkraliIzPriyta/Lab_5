@@ -90,7 +90,7 @@ public class CityManager {
                 long telephoneCode = a.nextLong();
                 a.nextLine();
                 System.out.print("Введите тип города(ULTRA_HIGH, HIGH, MEDIUM, ULTRA_LOW, NIGHTMARE):");
-                String standardOfLiving = a.nextLine();
+                StandardOfLiving standardOfLiving = StandardOfLiving.valueOf(a.nextLine());
                 System.out.print("Введите номер региона:");
                 long carcode = a.nextInt();
                 a.nextLine();
@@ -209,7 +209,7 @@ public class CityManager {
         }
     }
 
-    public void loadCollectionFromFile() {
+    public void loadCollectionFromFile() throws CollectionException {
         try {
             // Загружаем XML файл в память в виде DOM дерева
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -237,7 +237,7 @@ public class CityManager {
                 float area = Float.parseFloat(cityElement.getElementsByTagName("area").item(0).getTextContent());
                 double metersAboveSeaLevel = Double.parseDouble(cityElement.getElementsByTagName("metersAboveSeaLevel").item(0).getTextContent());
                 int age = Integer.parseInt(cityElement.getElementsByTagName("age").item(0).getTextContent());
-                String standardOfLiving = cityElement.getElementsByTagName("standardOfLiving").item(0).getTextContent();
+                StandardOfLiving standardOfLiving = StandardOfLiving.valueOf(cityElement.getElementsByTagName("standardOfLiving").item(0).getTextContent());
                 String creationDate = cityElement.getElementsByTagName("creationDate").item(0).getTextContent();
                 Human governor = new Human();
                 governor.setAge(age);
@@ -346,7 +346,7 @@ public class CityManager {
                 addElement(document, cityElement, "name", city.getName());
                 addElement(document, cityElement, "id", String.valueOf(city.getId()));
                 addElement(document, cityElement, "telephoneCode", String.valueOf(city.getTelephoneCode()));
-                addElement(document, cityElement, "standardOfLiving", city.getStandardOfLiving());
+                addElement(document, cityElement, "standardOfLiving", String.valueOf(city.getStandardOfLiving()));
                 addElement(document, cityElement, "carcode", String.valueOf(city.getCarCode()));
                 addElement(document, cityElement, "population", String.valueOf(city.getPopulation()));
                 addElement(document, cityElement, "area", String.valueOf(city.getArea()));

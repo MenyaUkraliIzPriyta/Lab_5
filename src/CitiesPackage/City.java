@@ -11,8 +11,9 @@ public class City {
     private double metersAboveSeaLevel;
     private long telephoneCode;
     private long carCode;
-    private String standardOfLiving;
+    private StandardOfLiving standardOfLiving;
     private Human governor;
+
 
 
     public City() {
@@ -26,6 +27,7 @@ public class City {
         this.metersAboveSeaLevel = metersAboveSeaLevel;
         this.standardOfLiving = standardOfLiving;
         this.governor = governor;
+
     }
     public int getId() {
         return id;
@@ -101,11 +103,11 @@ public class City {
         this.carCode = carCode;
     }
 
-    public String getStandardOfLiving() {
+    public StandardOfLiving getStandardOfLiving() {
         return standardOfLiving;
     }
 
-    public void setStandardOfLiving(String standardOfLiving) {
+    public void setStandardOfLiving(StandardOfLiving standardOfLiving) {
         this.standardOfLiving = standardOfLiving;
     }
 

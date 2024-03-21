@@ -1,9 +1,8 @@
 package CitiesPackage;
 
-enum StandardOfLiving {
+public enum StandardOfLiving {
     ULTRA_HIGH,
     HIGH,
     MEDIUM,
-    ULTRA_LOW,
-    NIGHTMARE;
+    ULTRA_LOW
 }

@@ -2,14 +2,14 @@
 <cities>
 	<city>
 		<name>spb</name>
-		<id>8877943</id>
-		<telephoneCode>2</telephoneCode>
-		<standardOfLiving></standardOfLiving>
-		<carcode>11</carcode>
-		<population>111</population>
-		<area>111.0</area>
-		<metersAboveSeaLevel>111.0</metersAboveSeaLevel>
-		<age>121</age>
-		<creationDate>Thu Mar 21 14:00:57 MSK 2024</creationDate>
+		<id>lll</id>
+		<telephoneCode>812</telephoneCode>
+		<standardOfLiving>HIGH</standardOfLiving>
+		<carcode>354335</carcode>
+		<population>34534534543</population>
+		<area>345345.0</area>
+		<metersAboveSeaLevel>34534.0</metersAboveSeaLevel>
+		<age>3453</age>
+		<creationDate>Thu Mar 21 22:00:47 MSK 2024</creationDate>
 	</city>
 </cities>
