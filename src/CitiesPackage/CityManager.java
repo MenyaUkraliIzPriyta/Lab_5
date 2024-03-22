@@ -1,14 +1,12 @@
 package CitiesPackage;
 
 import org.w3c.dom.*;
-import java.util.Random;
+
+import java.util.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Scanner;
 
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
@@ -45,6 +43,7 @@ public class CityManager {
     }
 
     private void executeCommand(String text) {
+        int flag = 0;
         String[] parts = text.split(" ", 2);
         String command = parts[0];
         String element = parts.length > 1 ? parts[1] : "";
@@ -60,7 +59,7 @@ public class CityManager {
                 System.out.println("clear : очистить коллекцию ");
                 System.out.println("save : сохранить коллекцию в файл");
                 System.out.println("exit : завершить программу (без сохранения в файл)");
-                System.out.println("insert_at index {element} : добавить новый элемент в заданную позицию ");
+                System.out.println("insert_at index : добавить новый элемент в заданную позицию ");
                 System.out.println("remove_at index : удалить элемент, находящийся в заданной позиции коллекции (index) ");
                 System.out.println("sum_of_meters_above_sea_level : вывести сумму значений поля metersAboveSeaLevel для всех элементов коллекции ");
                 System.out.println("count_by_car_code carCode : вывести количество элементов, значение поля carCode которых равно заданному ");
@@ -82,73 +81,49 @@ public class CityManager {
                 break;
 
             case "add":
-                Date date = new Date();
-                Scanner a = new Scanner(System.in);
-                Random random = new Random();
-                int id = random.nextInt(10000000);
-                System.out.print("Введите телефонный код: ");
-                long telephoneCode = a.nextLong();
-                a.nextLine();
-                System.out.print("Введите тип города(ULTRA_HIGH, HIGH, MEDIUM, ULTRA_LOW, NIGHTMARE):");
-                StandardOfLiving standardOfLiving = StandardOfLiving.valueOf(a.nextLine());
-                System.out.print("Введите номер региона:");
-                long carcode = a.nextInt();
-                a.nextLine();
-                System.out.print("Население:");
-                long population = a.nextLong();
-                a.nextLine();
-                System.out.print("Введите area:");
-                float area = a.nextFloat();
-                a.nextLine();
-                System.out.print("Высота над уровнем моря?");
-                double metersAboveSeaLevel = a.nextDouble();
-                a.nextLine();
-                System.out.print("Введите возраст мэра:");
-                int age = a.nextInt();
-                a.nextLine();
-
-                Human governor = new Human();
-                governor.setAge(age);
-                // Создаем объект City на основе считанных данных
-                City city = new City();
-                city.setName(element);
-                city.setId(id);
-                city.setTelephoneCode(telephoneCode);
-                city.setCarCode(carcode);
-                city.setPopulation(population);
-                city.setArea(area);
-                city.setMetersAboveSeaLevel(metersAboveSeaLevel);
-                city.setGovernor(governor);
-                city.setStandardOfLiving(standardOfLiving);
-                city.setCreationDate(String.valueOf(date));
-                cityCollection.add(city);
+                cityCollection.add(addEl(element));
+                System.out.println("Элемент добавлен в коллекцию");
                 System.out.println(cityCollection);
                 break;
 
             case "update_id":
+                flag = 0;
                 for (City cities : cityCollection) {
-                    if (cities.getName().equals(element) ) {
+                    if (cities.getName().equals(element)) {
+                        flag = 1;
                         Random random_ = new Random();
                         int id_ = random_.nextInt(10000000);
                         cities.setId(id_);
                     }
                 }
-                System.out.println("id изменен");
-                break;
+                if (flag == 1) {
+                    System.out.println("id изменен");
+                    break;
+                } else {
+                    System.out.println("Элемент не найден");
+                    break;
+                }
 
             case "remove_by_id":
+                flag = 0;
                 for (int i = 0; i != cityCollection.size(); i++) {
-                    if (cityCollection.get(i).getName().equals(element)) {
+                    if (cityCollection.get(i).getId() == Integer.parseInt(element)) {
+                        flag = 1;
                         City delete = cityCollection.get(i);
                         cityCollection.remove(delete);
                     }
                 }
-                System.out.println("Элемент удален");
-                break;
+                if (flag == 1) {
+                    System.out.println("Элемент удален");
+                    break;
+                } else {
+                    System.out.println("Элемент не найден");
+                    break;
+                }
 
             case "clear":
-               cityCollection.clear();
-               System.out.println("Ваша коллекция стала пустой");
+                cityCollection.clear();
+                System.out.println("Ваша коллекция стала пустой");
                 break;
 
             case "exit":
@@ -160,11 +135,10 @@ public class CityManager {
                 break;
 
             case "remove_at":
-                if (Integer.parseInt(element) >= cityCollection.size()) {
+                if ((Integer.parseInt(element) >= cityCollection.size()) || (Integer.parseInt(element) < 0)) {
                     System.out.println("Коллекция не содержит элемент с данным индексом");
                     break;
-                }
-                else {
+                } else {
                     for (int i = 0; i != cityCollection.size(); i++) {
                         if (i == Integer.parseInt(element)) {
                             City delete = cityCollection.get(i);
@@ -187,7 +161,7 @@ public class CityManager {
             case "count_by_car_code":
                 int sum_ = 0;
                 for (City cities : cityCollection) {
-                    if (cities.getCarCode() == Long.parseLong(element))  {
+                    if (cities.getCarCode() == Long.parseLong(element)) {
                         sum_++;
                     }
                 }
@@ -195,21 +169,85 @@ public class CityManager {
                 break;
 
             case "count_greater_than_car_code":
-                int sum__= 0;
+                int sum__ = 0;
                 for (City cities : cityCollection) {
-                    if (cities.getCarCode() > Long.parseLong(element))  {
+                    if (cities.getCarCode() > Long.parseLong(element)) {
                         sum__++;
                     }
                 }
                 System.out.println("Количество элементов: " + sum__);
                 break;
 
+            case "insert_at":
+                Scanner a = new Scanner(System.in);
+                System.out.print("Введите название города:");
+                String name = a.nextLine();
+
+                if (isInt(element)) {
+                    if (Integer.parseInt(element) <= cityCollection.size()) {
+                        cityCollection.add(Integer.parseInt(element), addEl(name));
+                        System.out.println("Элемент добавлен в коллекцию");
+                        System.out.println(cityCollection);
+                        break;
+                    }
+                    else {
+                        System.out.println("Превышен размер коллекции");
+                        break;
+                    }
+                }
+                else {
+                    System.out.println("Введены некоректные данные");
+                    break;
+                }
+
             default:
                 System.out.println("Неизвестная команда. Введите 'help' для справки.");
         }
     }
+    private City addEl(String name) {
+        Date date = new Date();
+        Scanner a = new Scanner(System.in);
+        Random random = new Random();
+        int id = random.nextInt(10000000);
+        System.out.print("Введите телефонный код: ");
+        long telephoneCode = a.nextLong();
+        a.nextLine();
+        System.out.print("Введите тип города(ULTRA_HIGH, HIGH, MEDIUM, ULTRA_LOW, NIGHTMARE):");
+        StandardOfLiving standardOfLiving = StandardOfLiving.valueOf(a.nextLine());
+        System.out.print("Введите номер региона:");
+        long carcode = a.nextInt();
+        a.nextLine();
+        System.out.print("Население:");
+        long population = a.nextLong();
+        a.nextLine();
+        System.out.print("Введите area:");
+        float area = a.nextFloat();
+        a.nextLine();
+        System.out.print("Высота над уровнем моря?");
+        double metersAboveSeaLevel = a.nextDouble();
+        a.nextLine();
+        System.out.print("Введите возраст мэра:");
+        int age = a.nextInt();
+        a.nextLine();
 
-    public void loadCollectionFromFile() throws CollectionException {
+        Human governor = new Human();
+        governor.setAge(age);
+        // Создаем объект City на основе считанных данных
+        City city = new City();
+        city.setName(name);
+        city.setId(id);
+        city.setTelephoneCode(telephoneCode);
+        city.setCarCode(carcode);
+        city.setPopulation(population);
+        city.setArea(area);
+        city.setMetersAboveSeaLevel(metersAboveSeaLevel);
+        city.setGovernor(governor);
+        city.setStandardOfLiving(standardOfLiving);
+        city.setCreationDate(String.valueOf(date));
+        return city;
+    }
+
+    private void loadCollectionFromFile()  throws CollectionException {
         try {
             // Загружаем XML файл в память в виде DOM дерева
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -230,25 +268,85 @@ public class CityManager {
 
                 // Получаем значения полей элемента "city"
                 String name = cityElement.getElementsByTagName("name").item(0).getTextContent();
-                int id = Integer.parseInt(cityElement.getElementsByTagName("id").item(0).getTextContent());
-                long telephoneCode = Long.parseLong(cityElement.getElementsByTagName("telephoneCode").item(0).getTextContent());
-                long carcode = Long.parseLong(cityElement.getElementsByTagName("carcode").item(0).getTextContent());
-                long population = Long.parseLong(cityElement.getElementsByTagName("population").item(0).getTextContent());
-                float area = Float.parseFloat(cityElement.getElementsByTagName("area").item(0).getTextContent());
+                if (name.equals("") ) {
+                    throw new CollectionException("В названии города допущена ошибка. Посмотрите загрузочный файл.");
+                }
+
+                String id = cityElement.getElementsByTagName("id").item(0).getTextContent();
+                if (!isInt(id)) {
+                    throw new CollectionException("Неверный id. Значение должно быть больше 0. Посмотрите загрузочный файл.");
+
+                }
+                else {
+                    if (Integer.parseInt(id) <= 0 || id.equals("")) {
+                        throw new CollectionException("Неверный id. Значение должно быть больше 0. Посмотрите загрузочный файл.");
+                    }
+                }
+                String telephoneCode = cityElement.getElementsByTagName("telephoneCode").item(0).getTextContent();
+                if (!isLong(telephoneCode)) {
+                    throw new CollectionException("Неверный telephoneCode. Значение должно быть больше 0 и меньше 100000. Посмотрите загрузочный файл.");
+                }
+                else {
+                    if ((Long.parseLong(telephoneCode) <= 0) || (Long.parseLong(telephoneCode) > 100000) || (telephoneCode).equals("")) {
+                        throw new CollectionException("Неверный telephoneCode. Значение должно быть больше 0 и меньше 100000. Посмотрите загрузочный файл.");
+                    }
+                }
+
+                String carcode = cityElement.getElementsByTagName("carcode").item(0).getTextContent();
+                if (!isLong(carcode)) {
+                    throw new CollectionException("Неверный carcode. Значение должно быть больше 0 и меньше 100000, и не может быть пустым. Посмотрите загрузочный файл.");
+                }
+                else {
+                    if ((Long.parseLong(carcode) <= 0) || (Long.parseLong(carcode) > 100000) || (carcode).equals("")) {
+                        throw new CollectionException("Неверный carcode. Значение должно быть больше 0 и меньше 100000, и не может быть пустым. Посмотрите загрузочный файл.");
+                    }
+                }
+
+                String population = cityElement.getElementsByTagName("population").item(0).getTextContent();
+                if (!isLong(population)) {
+                    throw new CollectionException("Неверный population. Значение должно быть больше 0 и не может быть пустым. Посмотрите загрузочный файл.");
+                }
+                else {
+                    if ((Long.parseLong(population) <= 0) || (population.equals(""))) {
+                        throw new CollectionException("Неверный population. Значение должно быть больше 0 и не может быть пустым. Посмотрите загрузочный файл.");
+                    }
+                }
+
+                String  area = cityElement.getElementsByTagName("area").item(0).getTextContent();
+                if (!isFloat(area)) {
+                    throw new CollectionException("Неверный area. Значение должно быть больше 0 и не может быть пустым. Посмотрите загрузочный файл.");
+                }
+                else {
+                    if ((Float.parseFloat(area) <= 0) || (area.equals(""))) {
+                        throw new CollectionException("Неверный area. Значение должно быть больше 0 и не может быть пустым. Посмотрите загрузочный файл.");
+                    }
+                }
+
                 double metersAboveSeaLevel = Double.parseDouble(cityElement.getElementsByTagName("metersAboveSeaLevel").item(0).getTextContent());
-                int age = Integer.parseInt(cityElement.getElementsByTagName("age").item(0).getTextContent());
+
+                String age = cityElement.getElementsByTagName("age").item(0).getTextContent();
+                if (!isInt(age)) {
+                    throw new CollectionException("Неверный age. Значение должно быть больше 0 и не может быть пустым. Посмотрите загрузочный файл.");
+                }
+
+                else {
+                    if ((Integer.parseInt(age) <= 0) || (age.equals(""))) {
+                        throw new CollectionException("Неверный age. Значение должно быть больше 0 и не может быть пустым. Посмотрите загрузочный файл.");
+                    }
+                }
+
                 StandardOfLiving standardOfLiving = StandardOfLiving.valueOf(cityElement.getElementsByTagName("standardOfLiving").item(0).getTextContent());
                 String creationDate = cityElement.getElementsByTagName("creationDate").item(0).getTextContent();
                 Human governor = new Human();
-                governor.setAge(age);
+                governor.setAge(Integer.parseInt(age));
                 // Создаем объект City на основе считанных данных
                 City city = new City();
                 city.setName(name);
-                city.setId(id);
-                city.setTelephoneCode(telephoneCode);
-                city.setCarCode(carcode);
-                city.setPopulation(population);
-                city.setArea(area);
+                city.setId(Integer.parseInt(id));
+                city.setTelephoneCode(Long.parseLong(telephoneCode));
+                city.setCarCode(Long.parseLong(carcode));
+                city.setPopulation(Long.parseLong(population));
+                city.setArea(Float.parseFloat(area));
                 city.setMetersAboveSeaLevel(metersAboveSeaLevel);
                 city.setGovernor(governor);
                 city.setStandardOfLiving(standardOfLiving);
@@ -260,7 +358,54 @@ public class CityManager {
             e.printStackTrace();
         }
     }
+    private static boolean isDouble(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            double d = Double.parseDouble(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
+    private static boolean isFloat(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            double d = Float.parseFloat(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
 
+    private static boolean isInt(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            double d = Integer.parseInt(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
+
+    private static boolean isLong(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            double d = Long.parseLong(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
+
+//    создание xml документа на основе введенных данных
     public void create_document() {
         Scanner a = new Scanner(System.in);
         Random random = new Random();
